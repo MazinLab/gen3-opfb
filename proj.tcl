@@ -57,14 +57,14 @@ update_ip_catalog -rebuild
 set obj [get_filesets constrs_1]
 
 # Add/Import constrs file and set constrs file properties
-set files [list \
-	[ file normalize "$origin_dir/xdc/timing.xdc"] 	\
-	[ file normalize "$origin_dir/xdc/ios.xdc"] 	\
-]
-add_files -fileset $obj $files
+#set files [list \
+#	[ file normalize "$origin_dir/xdc/timing.xdc"] 	\
+#	[ file normalize "$origin_dir/xdc/ios.xdc"] 	\
+#]
+#add_files -fileset $obj $files
 
 # Source Block Design.
-set file "[file normalize "$origin_dir/bd/bd-2019-2.tcl"]"
+set file "[file normalize "$origin_dir/bd/opfb.tcl"]"
 source $file
 
 # Update compile order.
