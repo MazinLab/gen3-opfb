@@ -57,14 +57,17 @@ update_ip_catalog -rebuild
 set obj [get_filesets constrs_1]
 
 # Add/Import constrs file and set constrs file properties
-#set files [list \
+set files [list \
 #	[ file normalize "$origin_dir/xdc/timing.xdc"] 	\
 #	[ file normalize "$origin_dir/xdc/ios.xdc"] 	\
-#]
-#add_files -fileset $obj $files
+]
+add_files -fileset $obj $files
 
 # Source Block Design.
 set file "[file normalize "$origin_dir/bd/opfb.tcl"]"
+source $file
+
+set file "[file normalize "$origin_dir/bd/pynq_adc2opfb_2019.2.tcl"]"
 source $file
 
 # Update compile order.
@@ -74,11 +77,11 @@ source $file
 set obj [get_filesets sources_1]
 
 # Create HDL Wrapper.
-make_wrapper -files [get_files d_1.bd] -top
+make_wrapper -files [get_files opfb.bd] -top
 
 # Add files to sources_1 fileset
 set files [list \
-  [file normalize "${origin_dir}/top/top.srcs/sources_1/bd/d_1/hdl/d_1_wrapper.v" ]\
+  [file normalize "${origin_dir}/top/top.srcs/sources_1/bd/d_1/hdl/opfb_wrapper.v" ]\
 ]
 add_files -fileset $obj $files
 
