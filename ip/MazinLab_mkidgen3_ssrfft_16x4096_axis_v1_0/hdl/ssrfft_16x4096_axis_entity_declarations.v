@@ -36,7 +36,75 @@
 
 `include "conv_pkg.v"
 `timescale 1 ns / 10 ps
-module ssrfft_16x4096_xldelay #(parameter width = -1, latency = -1, reg_retiming = 0, reset = 0)
+module sysgen_constant_2f08518cdb (
+  output [(16 - 1):0] op,
+  input clk,
+  input ce,
+  input clr);
+  assign op = 16'b1111111111111111;
+endmodule
+`timescale 1 ns / 10 ps
+module sysgen_relational_7edf5b1116 (
+  input [(16 - 1):0] a,
+  input [(16 - 1):0] b,
+  output [(1 - 1):0] op,
+  input clk,
+  input ce,
+  input clr);
+  wire [(16 - 1):0] a_1_31;
+  wire [(16 - 1):0] b_1_34;
+  reg op_mem_37_22[0:(1 - 1)];
+  initial
+    begin
+      op_mem_37_22[0] = 1'b0;
+    end
+  wire op_mem_37_22_front_din;
+  wire op_mem_37_22_back;
+  wire op_mem_37_22_push_front_pop_back_en;
+  localparam [(1 - 1):0] const_value = 1'b1;
+  wire result_12_3_rel;
+  assign a_1_31 = a;
+  assign b_1_34 = b;
+  assign op_mem_37_22_back = op_mem_37_22[0];
+  always @(posedge clk)
+    begin:proc_op_mem_37_22
+      integer i;
+      if (((ce == 1'b1) && (op_mem_37_22_push_front_pop_back_en == 1'b1)))
+        begin
+          op_mem_37_22[0] <= op_mem_37_22_front_din;
+        end
+    end
+  assign result_12_3_rel = a_1_31 == b_1_34;
+  assign op_mem_37_22_front_din = result_12_3_rel;
+  assign op_mem_37_22_push_front_pop_back_en = 1'b1;
+  assign op = op_mem_37_22_back;
+endmodule
+`timescale 1 ns / 10 ps
+module sysgen_concat_588fd13ef3 (
+  input [(16 - 1):0] in0,
+  input [(16 - 1):0] in1,
+  output [(32 - 1):0] y,
+  input clk,
+  input ce,
+  input clr);
+  wire [(16 - 1):0] in0_1_23;
+  wire [(16 - 1):0] in1_1_27;
+  wire [(32 - 1):0] y_2_1_concat;
+  assign in0_1_23 = in0;
+  assign in1_1_27 = in1;
+  assign y_2_1_concat = {in0_1_23, in1_1_27};
+  assign y = y_2_1_concat;
+endmodule
+`timescale 1 ns / 10 ps
+module sysgen_constant_9503739dfd (
+  output [(1 - 1):0] op,
+  input clk,
+  input ce,
+  input clr);
+  assign op = 1'b1;
+endmodule
+`timescale 1 ns / 10 ps
+module ssrfft_16x4096_axis_xldelay #(parameter width = -1, latency = -1, reg_retiming = 0, reset = 0)
   (input [width-1:0] d,
    input ce, clk, en, rst,
    output [width-1:0] q);
@@ -66,95 +134,8 @@ generate
 endgenerate
 endmodule
 `timescale 1 ns / 10 ps
-module sysgen_relational_b19f3f3992 (
-  input [(8 - 1):0] a,
-  input [(8 - 1):0] b,
-  output [(1 - 1):0] op,
-  input clk,
-  input ce,
-  input clr);
-  wire [(8 - 1):0] a_1_31;
-  wire [(8 - 1):0] b_1_34;
-  reg op_mem_37_22[0:(1 - 1)];
-  initial
-    begin
-      op_mem_37_22[0] = 1'b0;
-    end
-  wire op_mem_37_22_front_din;
-  wire op_mem_37_22_back;
-  wire op_mem_37_22_push_front_pop_back_en;
-  localparam [(1 - 1):0] const_value = 1'b1;
-  wire result_12_3_rel;
-  assign a_1_31 = a;
-  assign b_1_34 = b;
-  assign op_mem_37_22_back = op_mem_37_22[0];
-  always @(posedge clk)
-    begin:proc_op_mem_37_22
-      integer i;
-      if (((ce == 1'b1) && (op_mem_37_22_push_front_pop_back_en == 1'b1)))
-        begin
-          op_mem_37_22[0] <= op_mem_37_22_front_din;
-        end
-    end
-  assign result_12_3_rel = a_1_31 == b_1_34;
-  assign op_mem_37_22_front_din = result_12_3_rel;
-  assign op_mem_37_22_push_front_pop_back_en = 1'b1;
-  assign op = op_mem_37_22_back;
-endmodule
-`timescale 1 ns / 10 ps
-module sysgen_constant_34924d3503 (
-  output [(1 - 1):0] op,
-  input clk,
-  input ce,
-  input clr);
-  assign op = 1'b1;
-endmodule
-`timescale 1 ns / 10 ps
-module sysgen_constant_675def4144 (
-  output [(8 - 1):0] op,
-  input clk,
-  input ce,
-  input clr);
-  assign op = 8'b11111111;
-endmodule
-`timescale 1 ns / 10 ps
-module sysgen_logical_8ed66f40ee (
-  input [(1 - 1):0] d0,
-  input [(1 - 1):0] d1,
-  output [(1 - 1):0] y,
-  input clk,
-  input ce,
-  input clr);
-  wire d0_1_24;
-  wire d1_1_27;
-  reg latency_pipe_5_26[0:(1 - 1)];
-  initial
-    begin
-      latency_pipe_5_26[0] = 1'b0;
-    end
-  wire latency_pipe_5_26_front_din;
-  wire latency_pipe_5_26_back;
-  wire latency_pipe_5_26_push_front_pop_back_en;
-  wire fully_2_1_bit;
-  assign d0_1_24 = d0;
-  assign d1_1_27 = d1;
-  assign latency_pipe_5_26_back = latency_pipe_5_26[0];
-  always @(posedge clk)
-    begin:proc_latency_pipe_5_26
-      integer i;
-      if (((ce == 1'b1) && (latency_pipe_5_26_push_front_pop_back_en == 1'b1)))
-        begin
-          latency_pipe_5_26[0] <= latency_pipe_5_26_front_din;
-        end
-    end
-  assign fully_2_1_bit = d0_1_24 & d1_1_27;
-  assign latency_pipe_5_26_front_din = fully_2_1_bit;
-  assign latency_pipe_5_26_push_front_pop_back_en = 1'b1;
-  assign y = latency_pipe_5_26_back;
-endmodule
-`timescale 1 ns / 10 ps
 
-module  ssrfft_16x4096_xlslice  (x, y);
+module  ssrfft_16x4096_axis_xlslice  (x, y);
 
 //Parameter Definitions
 parameter new_msb= 9;
@@ -170,34 +151,20 @@ assign y = x[new_msb:new_lsb];
 
 endmodule
 `timescale 1 ns / 10 ps
-module sysgen_concat_de807d6bb2 (
-  input [(16 - 1):0] in0,
-  input [(16 - 1):0] in1,
-  output [(32 - 1):0] y,
-  input clk,
-  input ce,
-  input clr);
-  wire [(16 - 1):0] in0_1_23;
-  wire [(16 - 1):0] in1_1_27;
-  wire [(32 - 1):0] y_2_1_concat;
-  assign in0_1_23 = in0;
-  assign in1_1_27 = in1;
-  assign y_2_1_concat = {in0_1_23, in1_1_27};
-  assign y = y_2_1_concat;
-endmodule
-`timescale 1 ns / 10 ps
-module sysgen_reinterpret_6ab50f9faf (
+module sysgen_reinterpret_65932c5f45 (
   input [(16 - 1):0] input_port,
   output [(16 - 1):0] output_port,
   input clk,
   input ce,
   input clr);
-  wire [(16 - 1):0] input_port_1_40;
+  wire signed [(16 - 1):0] input_port_1_40;
+  wire [(16 - 1):0] output_port_5_5_force;
   assign input_port_1_40 = input_port;
-  assign output_port = input_port_1_40;
+  assign output_port_5_5_force = input_port_1_40;
+  assign output_port = output_port_5_5_force;
 endmodule
 `timescale 1 ns / 10 ps
-module sysgen_reinterpret_3da1d86e18 (
+module sysgen_reinterpret_d3829d47d9 (
   input [(16 - 1):0] input_port,
   output [(16 - 1):0] output_port,
   input clk,
@@ -210,7 +177,7 @@ module sysgen_reinterpret_3da1d86e18 (
   assign output_port = output_port_5_5_force;
 endmodule
 `timescale 1 ns / 10 ps
-module sysgen_concat_d2340403a7 (
+module sysgen_concat_a4c646af5c (
   input [(32 - 1):0] in0,
   input [(32 - 1):0] in1,
   input [(32 - 1):0] in2,
@@ -268,44 +235,44 @@ module sysgen_concat_d2340403a7 (
   assign y = y_2_1_concat;
 endmodule
 `timescale 1 ns / 10 ps
-module sysgen_concat_294a40dcb5 (
-  input [(16 - 1):0] in0,
-  input [(16 - 1):0] in1,
-  input [(16 - 1):0] in2,
-  input [(16 - 1):0] in3,
-  input [(16 - 1):0] in4,
-  input [(16 - 1):0] in5,
-  input [(16 - 1):0] in6,
-  input [(16 - 1):0] in7,
-  input [(16 - 1):0] in8,
-  input [(16 - 1):0] in9,
-  input [(16 - 1):0] in10,
-  input [(16 - 1):0] in11,
-  input [(16 - 1):0] in12,
-  input [(16 - 1):0] in13,
-  input [(16 - 1):0] in14,
-  input [(16 - 1):0] in15,
-  output [(256 - 1):0] y,
+module sysgen_concat_4407551f30 (
+  input [(1 - 1):0] in0,
+  input [(1 - 1):0] in1,
+  input [(1 - 1):0] in2,
+  input [(1 - 1):0] in3,
+  input [(1 - 1):0] in4,
+  input [(1 - 1):0] in5,
+  input [(1 - 1):0] in6,
+  input [(1 - 1):0] in7,
+  input [(1 - 1):0] in8,
+  input [(1 - 1):0] in9,
+  input [(1 - 1):0] in10,
+  input [(1 - 1):0] in11,
+  input [(1 - 1):0] in12,
+  input [(1 - 1):0] in13,
+  input [(1 - 1):0] in14,
+  input [(1 - 1):0] in15,
+  output [(16 - 1):0] y,
   input clk,
   input ce,
   input clr);
-  wire [(16 - 1):0] in0_1_23;
-  wire [(16 - 1):0] in1_1_27;
-  wire [(16 - 1):0] in2_1_31;
-  wire [(16 - 1):0] in3_1_35;
-  wire [(16 - 1):0] in4_1_39;
-  wire [(16 - 1):0] in5_1_43;
-  wire [(16 - 1):0] in6_1_47;
-  wire [(16 - 1):0] in7_1_51;
-  wire [(16 - 1):0] in8_1_55;
-  wire [(16 - 1):0] in9_1_59;
-  wire [(16 - 1):0] in10_1_63;
-  wire [(16 - 1):0] in11_1_68;
-  wire [(16 - 1):0] in12_1_73;
-  wire [(16 - 1):0] in13_1_78;
-  wire [(16 - 1):0] in14_1_83;
-  wire [(16 - 1):0] in15_1_88;
-  wire [(256 - 1):0] y_2_1_concat;
+  wire in0_1_23;
+  wire in1_1_27;
+  wire in2_1_31;
+  wire in3_1_35;
+  wire in4_1_39;
+  wire in5_1_43;
+  wire in6_1_47;
+  wire in7_1_51;
+  wire in8_1_55;
+  wire in9_1_59;
+  wire in10_1_63;
+  wire in11_1_68;
+  wire in12_1_73;
+  wire in13_1_78;
+  wire in14_1_83;
+  wire in15_1_88;
+  wire [(16 - 1):0] y_2_1_concat;
   assign in0_1_23 = in0;
   assign in1_1_27 = in1;
   assign in2_1_31 = in2;
@@ -325,41 +292,3 @@ module sysgen_concat_294a40dcb5 (
   assign y_2_1_concat = {in0_1_23, in1_1_27, in2_1_31, in3_1_35, in4_1_39, in5_1_43, in6_1_47, in7_1_51, in8_1_55, in9_1_59, in10_1_63, in11_1_68, in12_1_73, in13_1_78, in14_1_83, in15_1_88};
   assign y = y_2_1_concat;
 endmodule
-module ssrfft_16x4096_xlcounter_free  (ce, clr, clk, op, up, load, din, en, rst);
- 
- parameter core_name0= "";
- parameter op_width= 5;
- parameter op_arith= `xlSigned;
- 
- input ce, clr, clk;
- input up, load;
- input [op_width-1:0] din;
- input en, rst;
- output [op_width-1:0] op;
- 
- parameter [(8*op_width)-1:0] oneStr = { op_width{"1"}}; 
- 
- wire  core_sinit;
- wire  core_ce;
- wire [op_width-1:0] op_net;
- 
-    assign core_ce = ce & en;
-    assign core_sinit = (clr | rst) & ce;
-    assign op = op_net;
- 
- generate
-
-
-
-if (core_name0 == "ssrfft_16x4096_c_counter_binary_v12_0_i0") 
-     begin:comp0
-ssrfft_16x4096_c_counter_binary_v12_0_i0 core_instance0 ( 
-        .CLK(clk),
-        .CE(core_ce),
-        .SINIT(core_sinit),
-        .Q(op_net) 
-       ); 
-     end 
-
-endgenerate 
- endmodule
