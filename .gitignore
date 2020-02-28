@@ -1,3 +1,5 @@
+*vivado*
+*.log
 opfb/
 top/
 ._.DS_Store
