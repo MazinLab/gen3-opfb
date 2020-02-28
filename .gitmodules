@@ -4,3 +4,6 @@
 [submodule "ip/opfb-fir-to-fft"]
 	path = ip/opfb-fir-to-fft
 	url = https://github.com/MazinLab/opfb-fir-to-fft.git
+[submodule "ip/pkg-fft-output"]
+	path = ip/pkg-fft-output
+	url = https://github.com/MazinLab/pkg-fft-output.git
